@@ -17,6 +17,10 @@ import p10
 import p11
 import p12
 import p13
+import p14
+import p15
+import p16
+import p17
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -82,6 +86,21 @@ class TestSolutionsMethods(unittest.TestCase):
     def test_p13(self):
         self.assertEqual(p13.p13([1, 2, 2, 3, 1, 5, 5, 5, 5]), [
                          [1, 1], [2, 2], [1, 3], [1, 1], [4, 5]])
+
+    def test_p14(self):
+        self.assertEqual(p14.p14([1, 2, 3, 4]), [1, 1, 2, 2, 3, 3, 4, 4])
+
+    def test_p15(self):
+        self.assertEqual(p15.p15([1, 2, 3, 4], 3), [
+                         1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4])
+
+    def test_p16(self):
+        self.assertEqual(p16.p16([1, 2, 3, 4, 5, 6, 7, 8, 9], 3), [
+                         1, 2, 4, 5, 7, 8])
+
+    def test_p17(self):
+        self.assertEqual(p17.p17([1, 2, 3, 4, 5, 6, 7, 8, 9], 3), [
+                         [1, 2, 3], [4, 5, 6, 7, 8, 9]])
 
 
 if __name__ == "__main__":
