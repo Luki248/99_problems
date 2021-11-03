@@ -21,6 +21,12 @@ import p14
 import p15
 import p16
 import p17
+import p18
+import p19
+import p20
+import p21
+import p22
+import p23
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -101,6 +107,30 @@ class TestSolutionsMethods(unittest.TestCase):
     def test_p17(self):
         self.assertEqual(p17.p17([1, 2, 3, 4, 5, 6, 7, 8, 9], 3), [
                          [1, 2, 3], [4, 5, 6, 7, 8, 9]])
+
+    def test_p18(self):
+        self.assertEqual(p18.p18([1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 7), [3, 4, 5, 6, 7])
+
+    def test_p19_01(self):
+        self.assertEqual(p19.p19([1, 2, 3, 4, 5, 6, 7, 8, 9], 3), [4, 5, 6, 7, 8, 9, 1, 2, 3])
+
+    def test_p19_02(self):
+        self.assertEqual(p19.p19([1, 2, 3, 4, 5, 6, 7, 8, 9], -2), [8, 9, 1, 2, 3, 4, 5, 6, 7])
+
+    def test_p20(self):
+        self.assertEqual(p20.p20([1, 2, 3, 4], 2), [1, 3, 4])
+
+    def test_p21(self):
+        self.assertEqual(p21.p21(6, [1, 2, 3, 4], 2), [1, 6, 2, 3, 4])
+
+    def test_p22_01(self):
+        self.assertEqual(p22.p22(4, 9), [4, 5, 6, 7, 8, 9])
+
+    def test_p22_02(self):
+        self.assertEqual(p22.p22(9, 4), [9, 8, 7, 6, 5, 4])
+
+    def test_p23(self):
+        self.assertEqual(len(p23.p23([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)), 3)
 
 
 if __name__ == "__main__":
