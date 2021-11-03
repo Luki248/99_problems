@@ -27,6 +27,8 @@ import p20
 import p21
 import p22
 import p23
+import p24
+import p25
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -131,6 +133,12 @@ class TestSolutionsMethods(unittest.TestCase):
 
     def test_p23(self):
         self.assertEqual(len(p23.p23([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)), 3)
+
+    def test_p24(self):
+        self.assertEqual(len(p24.p24(6, 49)), 6)
+
+    def test_p25(self):
+        self.assertEqual(len(p25.p25([1, 2, 3, 4, 5, 6, 7, 8, 9])), 9)
 
 
 if __name__ == "__main__":
