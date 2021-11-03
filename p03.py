@@ -11,6 +11,7 @@ def p03(list, k):
     else:
         return list[k]
 
+
 if __name__ == "__main__":
-    ret = p03([1,2,3,4], 3)
+    ret = p03([1, 2, 3, 4], 3)
     print(ret)

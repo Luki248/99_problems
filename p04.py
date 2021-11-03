@@ -5,6 +5,7 @@
 def p04(list):
     return len(list)
 
+
 if __name__ == "__main__":
-    ret = p04([1,2,3,4])
+    ret = p04([1, 2, 3, 4])
     print(ret)

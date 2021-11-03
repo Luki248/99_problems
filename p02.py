@@ -8,6 +8,7 @@ def p02(list):
     else:
         return [list[-2], list[-1]]
 
+
 if __name__ == "__main__":
-    ret = p02([1,2,3,4])
+    ret = p02([1, 2, 3, 4])
     print(ret)
