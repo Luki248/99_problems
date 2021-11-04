@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# P22: Insert an element at a given position into a list.
+# P22: Create a list containing all integers within a given range.
 def p22(j, k):
     if j < k:
         return list(range(j, k+1, 1))
