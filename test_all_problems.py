@@ -33,6 +33,16 @@ import p26
 import p27
 import p28
 import p31
+import p32
+import p33
+import p34
+import p35
+import p36
+import p37
+import p38
+import p39
+import p40
+import p41
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -168,6 +178,40 @@ class TestSolutionsMethods(unittest.TestCase):
     def test_p31(self):
         self.assertEqual(p31.p31(113), True)
 
+    def test_p32(self):
+        self.assertEqual(p32.p32(36, 63), 9)
+
+    def test_p33(self):
+        self.assertEqual(p33.p33(35, 64), True)
+
+    def test_p34(self):
+        self.assertEqual(p34.p34(10), 4)
+
+    def test_p35(self):
+        self.assertEqual(p35.p35(315), [3, 3, 5, 7])
+
+    def test_p36(self):
+        self.assertEqual(p36.p36(315), [[3, 2], [5, 1], [7, 1]])
+
+    def test_p37(self):
+        self.assertEqual(p37.p37(315), 144)
+
+    def test_p38(self):
+        self.assertEqual(len(p38.p38(10090)), 2)
+
+    def test_p39(self):
+        self.assertEqual(p39.p39(10, 100),
+                         [11, 13, 17, 19, 23, 29, 31, 37,
+                          41, 43, 47, 53, 59, 61, 67, 71,
+                          73, 79, 83, 89, 97])
+
+    def test_p40(self):
+        self.assertEqual(p40.p40(28), [5, 23])
+
+    def test_p41(self):
+        self.assertEqual(p41.p41(9, 20),
+                         ['10=3+7', '12=5+7', '14=3+11', '16=3+13',
+                          '18=5+13', '20=3+17'])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2, exit=False)

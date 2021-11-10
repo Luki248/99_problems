@@ -3,15 +3,12 @@
 
 # P32: Determine the greatest common divisor of two positive integer numbers.
 def p32(m, n):
-    if input < 1:
-        return None
+    if n == 0:
+        return m
     else:
-        for i in range((input - 1), 1, -1):
-            if input % i == 0:
-                return False
-        return True
+        return p32(n, m % n)
 
 
 if __name__ == "__main__":
-    ret = p32(24, 6)
+    ret = p32(36, 63)
     print(ret)
