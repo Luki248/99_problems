@@ -32,6 +32,7 @@ import p25
 import p26
 import p27
 import p28
+import p31
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -163,6 +164,9 @@ class TestSolutionsMethods(unittest.TestCase):
     def test_p28b(self):
         self.assertEqual(p28.p28b([[1, 2], [3], [4, 5, 6, 7], [], [8, 9]]),
                          [[4, 5, 6, 7], [1, 2], [8, 9], [3], []])
+
+    def test_p31(self):
+        self.assertEqual(p31.p31(113), True)
 
 
 if __name__ == "__main__":
