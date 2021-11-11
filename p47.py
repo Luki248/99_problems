@@ -72,32 +72,45 @@ def mover(func):
     return calc
 
 
-def make_expr(a, b, calc):
+def combine_list_to_str(calc):
     expr = ""
     for item in calc:
-        if item == "A":
-            expr += str(a)
-        elif item == "B":
-            expr += str(b)
-        else:
-            expr += item
+        expr += item
     return expr
 
 
-# P47: Truth tables for logical expressions (2).
+# P47: Evaluates logical expressions (2).
 #       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
 def p47(a, b, expr):
-    print(expr)
+    #print(expr)
     func = lexer(expr)
-    print(func)
+    #print(func)
     calc = mover(func)
-    print(calc)
-    expression = make_expr(a, b, calc)
-    print(expression)
-    ret = p46.p46(expression)
+    #print(calc)
+    expression = combine_list_to_str(calc)
+    #print(expression)
+    ret = p46.p46(a, b, expression)
     return ret
 
 
+# P47: Truth table for logic expression (2).
+#       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+def p47tt(expr):
+    print("---- " + str(expr) + " ----")
+    print("a b x")
+    a, b = 0, 0
+    x = p47(a, b, expr)
+    print(a, b, x)
+    a, b = 0, 1
+    x = p47(a, b, expr)
+    print(a, b, x)
+    a, b = 1, 0
+    x = p47(a, b, expr)
+    print(a, b, x)
+    a, b = 1, 1
+    x = p47(a, b, expr)
+    print(a, b, x)
+
+
 if __name__ == "__main__":
-    ret = p47(1, 0, "(A and (A or (not B)))")
-    print(ret)
+    p47tt("(A and (A or (not B)))")

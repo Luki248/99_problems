@@ -240,7 +240,7 @@ class TestSolutionsMethods(unittest.TestCase):
         self.assertEqual(p46.f_impl(1, 0), 0)
 
     def test_p46(self):
-        self.assertEqual(p46.p46("and(1, or(1, not(0)))"), 1)
+        self.assertEqual(p46.p46(1, 0, "and(A, or(A, not(B)))"), 1)
 
     def test_p47(self):
         self.assertEqual(p47.p47(1, 0, "(A and (A or (not B)))"), 1)

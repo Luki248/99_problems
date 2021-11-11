@@ -155,11 +155,15 @@ def tt_impl():
     print(a, b, x, "\n")
 
 
-def make_expr(calc):
+def make_expr(a, b, calc):
     expr = ""
     i = 0
     while i < len(calc):
-        if calc[i:i+2] == "or":
+        if calc[i] == "A":
+            expr += str(a)
+        elif calc[i] == "B":
+            expr += str(b)
+        elif calc[i:i+2] == "or":
             expr += "f_or"
             i += 1
         elif calc[i:i+3] == "and":
@@ -189,13 +193,16 @@ def make_expr(calc):
     return expr
 
 
-def p46(expr):
-    res = eval(make_expr(expr))
+# P46: Evaluates logical expressions.
+#       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+def p46(a, b, expr):
+    res = eval(make_expr(a, b, expr))
     return res
 
 
-# P46: Truth tables for logical expressions.
-def p46tt():
+# P46: Truth table for logic expression.
+#       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+def p46tt(expr):
     print("---- not ----")
     tt_not()
 
@@ -220,21 +227,21 @@ def p46tt():
     print("---- impl ----")
     tt_impl()
 
-    print("---- (A and (A or B)) ----")
+    print("---- " + str(expr) + " ----")
     print("a b x")
     a, b = 0, 0
-    x = f_and(a, f_or(a, b))
+    x = p46(a, b, expr)
     print(a, b, x)
     a, b = 0, 1
-    x = f_and(a, f_or(a, b))
+    x = p46(a, b, expr)
     print(a, b, x)
     a, b = 1, 0
-    x = f_and(a, f_or(a, b))
+    x = p46(a, b, expr)
     print(a, b, x)
     a, b = 1, 1
-    x = f_and(a, f_or(a, b))
+    x = p46(a, b, expr)
     print(a, b, x)
 
 
 if __name__ == "__main__":
-    p46tt()
+    p46tt("and(A, or(A, B))")
