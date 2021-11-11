@@ -43,6 +43,7 @@ import p38
 import p39
 import p40
 import p41
+import p46
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -212,6 +213,31 @@ class TestSolutionsMethods(unittest.TestCase):
         self.assertEqual(p41.p41(9, 20),
                          ['10=3+7', '12=5+7', '14=3+11', '16=3+13',
                           '18=5+13', '20=3+17'])
+
+    def test_p46a(self):
+        self.assertEqual(p46.f_not(1), 0)
+    
+    def test_p46b(self):
+        self.assertEqual(p46.f_and(1, 1), 1)
+
+    def test_p46c(self):
+        self.assertEqual(p46.f_or(1, 0), 1)
+
+    def test_p46d(self):
+        self.assertEqual(p46.f_nand(1, 1), 0)
+
+    def test_p46e(self):
+        self.assertEqual(p46.f_nor(1, 0), 0)
+
+    def test_p46f(self):
+        self.assertEqual(p46.f_xor(1, 0), 1)
+
+    def test_p46g(self):
+        self.assertEqual(p46.f_equ(0, 0), 1)
+
+    def test_p46h(self):
+        self.assertEqual(p46.f_impl(1, 0), 0)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2, exit=False)
