@@ -66,7 +66,7 @@ L-99: Ninety-Nine Lisp Problems</h1>
     * (pack '(a a a a b c c a a d e e e e))<BR>
     ((A A A A) (B) (C C) (A A) (D) (E E E E))<P>
 
-  <DT><STRONG><A href="p10.lisp">P10</A> 
+  <DT><STRONG><A href="p10.lisp" id="p10">P10</A> 
   (*) Run-length encoding of a list.</STRONG>
     <DD>Use the result of problem P09 to implement the so-called
     run-length encoding data compression method. Consecutive duplicates
@@ -122,7 +122,7 @@ L-99: Ninety-Nine Lisp Problems</h1>
   <DT><STRONG><A href="p17.lisp">P17</A> 
   (*) Split a list into two parts; the length of the first
     part is given.</STRONG>
-    <DD>Do not use any predefined predicates.<BR><BR>
+    <DD>Do not use any predefined functions.<BR><BR>
     Example:<BR>
     * (split '(a b c d e f g h i k) 3)<BR>
     ( (A B C) (D E F G H I K))<P>
@@ -216,8 +216,8 @@ L-99: Ninety-Nine Lisp Problems</h1>
     * (group3 '(aldo beat carla david evi flip gary hugo ida))<br>
     ( ( (ALDO BEAT) (CARLA DAVID EVI) (FLIP GARY HUGO IDA) )<br>
     ... )<br><br>
-    b) Generalize the above predicate in a way that we can specify a list
-    of group sizes and the predicate will return a list of groups.<br><br>
+    b) Generalize the above function in a way that we can specify a list
+    of group sizes and the function will return a list of groups.<br><br>
     Example:<br>
     * (group '(aldo beat carla david evi flip gary hugo ida) '(2 2 5))<br>
     ( ( (ALDO BEAT) (CARLA DAVID) (EVI FLIP GARY HUGO IDA) )<br>
@@ -249,7 +249,7 @@ L-99: Ninety-Nine Lisp Problems</h1>
     first, others with a more frequent length come later.<br><br>
     Example:<br>
     * (lfsort '((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o)))<br>
-    ((i j k l) (o) (a b c) (f g h) (d e) (d e) (m n))<br>
+    ((I J K L) (O) (A B C) (F G H) (D E) (D E) (M N))<br>
     <br>
     Note that in the above example, the first two lists in the result 
     have length 4 and 1, both lengths appear just once. The third and 
@@ -312,7 +312,7 @@ L-99: Ninety-Nine Lisp Problems</h1>
     * (prime-factors-mult 315)<BR>
     ((3 2) (5 1) (7 1))<P>
     Hint: The problem is similar to problem 
-    <A href="p13.lisp">P13</a>.<P>
+    <A href="#p10">P10</a>.<P>
 
   <DT><STRONG><A href="p37.lisp">P37</A> 
   (**) Calculate Euler's totient function phi(m) (improved).</STRONG> 
@@ -323,14 +323,15 @@ L-99: Ninety-Nine Lisp Problems</h1>
     Let ((p1 m1) (p2 m2) (p3 m3) ...) be the list of prime factors (and 
     their multiplicities) of a given number m. Then phi(m) can be calculated
     with the following formula:<P>
-    phi(m) = (p1 - 1) * p1 ** (m1 - 1) + (p2 - 1) * p2 ** (m2 - 1) + 
-    (p3 - 1) * p3 ** (m3 - 1) + ...<P>
+    phi(m) = (p1 - 1) * p1 ** (m1 - 1) * (p2 - 1) * p2 ** (m2 - 1) * 
+    (p3 - 1) * p3 ** (m3 - 1) * ...<P>
     Note that a ** b stands for the b'th power of a.<P> 
 
   <DT><STRONG><A href="p38.lisp">P38</A> 
   (*) Compare the two methods of calculating Euler's totient function.</STRONG>
     <DD>Use the solutions of problems P34 and P37 to compare the algorithms.
-    Take the number of logical inferences as a measure for efficiency.
+    Take the number of basic operations, including CARs, CDRs, CONSes, and 
+    arithmetic operations, as a measure for efficiency.
     Try to calculate phi(10090) as an example.<P>
 
   <DT><STRONG><A href="p39.lisp">P39</A> 
@@ -346,7 +347,7 @@ L-99: Ninety-Nine Lisp Problems</h1>
     been proved to be correct in the general case. 
     It has been <em>numerically</em>
     confirmed up to very large numbers (much larger than we can go with our 
-    Prolog system). Write a predicate to find the two prime numbers
+    Lisp system). Write a function to find the two prime numbers
     that sum up to a given even integer.<P>
     Example:<BR>
     * (goldbach 28)<BR>
@@ -381,41 +382,39 @@ L-99: Ninety-Nine Lisp Problems</h1>
 <DL>
    <DT><B><A HREF="p46.lisp">P46</A> 
    (**) Truth tables for logical expressions.</B>
-   <DD>Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 
-    and equ/2 (for logical equivalence) which succeed or
-    fail according to the result of their respective operations; e.g.
-    and(A,B) will succeed, if and only if both A and B succeed.
-    Note that A and B can be Prolog goals (not only the constants
-    true and fail).<P>
+   <DD>Define functions and, or, nand, nor, xor, impl 
+    and equ (for logical equivalence) which return the result
+    of the respective operation on boolean values.<P>
     A logical expression in two variables can then be written in 
-    prefix notation, as in the following example: and(or(A,B),nand(A,B)).<P>
-    Now, write a predicate table/3 which prints the truth table of a
+    prefix notation, as in the following example: (and (or A B) (nand
+    A B)).<P>
+    Write a function table which prints the truth table of a
     given logical expression in two variables.<P>
 
     Example:<BR>
-    * table(A,B,and(A,or(A,B))).<BR>
+    * (table 'A 'B '(and A (or A B))).<BR>
     <TT>
     true  true  true<BR>
-    true  fail  true<BR>
-    fail  true  fail<BR>
-    fail  fail  fail<BR>
+    true  nil   true<BR>
+    nil   true  nil <BR>
+    nil   nil   nil <BR>
     </TT>
    <P>
 
    <DT><B><A HREF="p47.lisp">P47</A> 
    (*) Truth tables for logical expressions (2).</B>
-   <DD>Continue problem P46 by defining and/2, or/2, etc as being
-   operators. This allows to write the logical expression in the
-   more natural way, as in the example: A and (A or not B).
-   Define operator precedence as usual; i.e. as in Java.<P>
+   <DD>Modify problem P46 by accepting expressions written in
+   infix notation, with all parenthesis present.
+   This allows us to write logical expression in a
+   more natural way, as in the example: (A and (A or (not B))).<P>
 
    Example:<BR>
-   * table(A,B, A and (A or not B)).<BR>
+   * (table 'A 'B '(A and (A or (not B)))).<BR>
    <TT>
    true  true  true<BR>
-   true  fail  true<BR>
-   fail  true  fail<BR>
-   fail  fail  fail<BR>
+   true  nil   true<BR>
+   nil   true  nil <BR>
+   nil   nil   nil <BR>
    </TT>
    <P>
 
@@ -423,20 +422,20 @@ L-99: Ninety-Nine Lisp Problems</h1>
    (**) Truth tables for logical expressions (3).</B>
    <DD> Generalize problem P47 in such a way that the logical
    expression may contain any number of logical variables.
-   Define table/2 in a way that table(List,Expr) prints the
+   Define table in a way that (table List Expr) prints the
    truth table for the expression Expr, which contains the
    logical variables enumerated in List.<P>
    Example:<BR>
-   * table([A,B,C], A and (B or C) equ A and B or A and C).<BR>
+   * (table '(A B C) '((A and (B or C)) equ ((A and B) or (A and C)))).<BR>
    <TT>
    true  true  true  true<BR>
-   true  true  fail  true<BR>
-   true  fail  true  true<BR>
-   true  fail  fail  true<BR> 
-   fail  true  true  true<BR>
-   fail  true  fail  true<BR>
-   fail  fail  true  true<BR>
-   fail  fail  fail  true<BR>
+   true  true  nil   true<BR>
+   true  nil   true  true<BR>
+   true  nil   nil   true<BR> 
+   nil   true  true  true<BR>
+   nil   true  nil   true<BR>
+   nil   nil   true  true<BR>
+   nil   nil   nil   true<BR>
    </TT>
    <P>
 
@@ -444,13 +443,13 @@ L-99: Ninety-Nine Lisp Problems</h1>
    (**) Gray code.</B>
    <DD> An n-bit Gray code is a sequence of n-bit strings constructed
    according to certain rules. For example,<br>
-   n = 1: C(1) = ['0','1'].<br>
-   n = 2: C(2) = ['00','01','11','10'].<br>
-   n = 3: C(3) = ['000','001','011','010',´110´,´111´,´101´,´100´].<br><br>
-   Find out the construction rules and write a predicate with the following
+   n = 1: C(1) = ("0" "1").<br>
+   n = 2: C(2) = ("00" "01" "11" "10").<br>
+   n = 3: C(3) = ("000" "001" "011" "010" "110" "111" "101" "100").<br><br>
+   Find out the construction rules and write a function with the following
    specification:<br><br>
-   % gray(N,C) :- C is the N-bit Gray code<br><br>
-   Can you apply the method of "result caching" in order to make the predicate
+     (gray N) returns the N-bit Gray code<br><br>
+   Can you apply the method of "result caching" in order to make the function
    more efficient, when it is to be used repeatedly?
    <p>
 
@@ -459,15 +458,14 @@ L-99: Ninety-Nine Lisp Problems</h1>
    <DD> First of all, consult a good book on discrete mathematics or 
    algorithms for a detailed description of Huffman codes!<br><br>
    We suppose a set of symbols with their frequencies, given as a list of
-   fr(S,F) terms. Example: 
-   [fr(a,45),fr(b,13),fr(c,12),fr(d,16),fr(e,9),fr(f,5)]. Our objective is to
-   construct a list hc(S,C) terms, where C is the Huffman code word for 
-   the symbol S. In our example, the result could be Hs = [hc(a,'0'), 
-   hc(b,'101'), hc(c,'100'), hc(d,'111'), hc(e,'1101'), 
-   hc(f,'1100')] [hc(a,'01'),...etc.]. 
-   The task shall be performed by the predicate huffman/2 defined as follows:
+   (S F) elements. Example: 
+   ( (a 45) (b 13) (c 12) (d 16) (e 9) (f 5) ). Our objective is to
+   construct a list of (S C) elements, where C is the Huffman code word for 
+   symbol S. In our example, the result could be ( (A "0") (B "101")
+   (C "100") (D "111") (E "1101") (F "1100") ).
+   The task shall be performed by a function huffman defined as follows:
    <br><br>
-   % huffman(Fs,Hs) :- Hs is the Huffman code table for the frequency table Fs
+     (huffman F) returns the Huffman code table for the frequency table F
    <p>
 
 </DL>
@@ -479,8 +477,8 @@ L-99: Ninety-Nine Lisp Problems</h1>
 element and two successors, which are binary trees themselves.</font></strong> 
 <img src="p67.gif" align="left" hspace="20">
 <br>In Lisp we represent the empty tree by 'nil' and the 
-non-empty tree by the list (X L R), where X denotes the root 
-node and L and R denote the left and right subtree, respectively.
+non-empty tree by the list (X L R), where X denotes the information at the root 
+node and L and R denote the left and right subtrees, respectively.
 The example tree depicted opposite is therefore represented by the 
 following list: <br><br>
 (a (b (d nil nil) (e nil nil)) (c nil (f (g nil nil) nil)))
@@ -489,19 +487,19 @@ Other examples are a binary tree that consists of a root node only:<br><br>
 (a nil nil) or an empty binary tree: nil.
 </p>
 <p>
-You can check your predicates using these example trees. They are
+You can check your functions using these example trees. They are
 given as test cases in <a href="p54.lisp">p54.lisp</a>.
 </p>
 
 <DL>
    <DT><B><A HREF="p54A.lisp">P54A</A> 
-   (*) Check whether a given term represents a binary tree</B>
-   <DD>Write a predicate istree which returns true if and only if its argument
+   (*) Check whether a given expression represents a binary tree</B>
+   <DD>Write a function istree which returns true if and only if its argument
         is a list representing a binary tree.<br>
 	Example:<br>
-	* (istree (a (b nil nil) nil))<br>
+	* (istree '(a (b nil nil) nil))<br>
         T<br>
-	* (istree (a (b nil nil)))<br>
+	* (istree '(a (b nil nil)))<br>
         NIL<p>
 
    <DT><B><A HREF="p55.lisp">P55</A> 
@@ -511,14 +509,19 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
 	nodes in its right subtree are almost equal, which means their
 	difference is not greater than one.<br><br>
 	Write a function cbal-tree to construct completely balanced
-	binary trees for a given number of nodes. The predicate should
-	generate all solutions via backtracking. Put the letter 'x'
+	binary trees for a given number of nodes. The function should
+	generate all solutions. Put the symbol 'x'
 	as information into all nodes of the tree.<br>
 	Example:<br>
-	* cbal-tree(4,T).<br>
-	T = t(x, t(x, nil, nil), t(x, nil, t(x, nil, nil))) ;<br>
-	T = t(x, t(x, nil, nil), t(x, t(x, nil, nil), nil)) ;<br>
-	etc......No<p>
+	* (cbal-tree-print 4)<br>
+	(X (X NIL NIL) (X NIL (X NIL NIL)))<br>
+	(X (X NIL NIL) (X (X NIL NIL) NIL))<br>
+	etc......
+       <p>Note: you can either print the trees or return a list
+       with them all.</p>
+	* (cbal-tree 4)<br>
+	((X (X NIL NIL) (X NIL (X NIL NIL))) (X (X NIL NIL) (X (X NIL NIL) NIL))
+	......)<p>
 
 
    <DT><B><A HREF="p56.lisp">P56</A> 
@@ -526,28 +529,27 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
    <DD>Let us call a binary tree symmetric if you can draw a vertical
 	line through the root node and then the right subtree is the mirror
 	image of the left subtree.
-	Write a predicate symmetric/1 to check whether a given binary
-	tree is symmetric. <strong>Hint:</strong> 
-	Write a predicate mirror/2 first to
-	check whether one tree is the mirror image of another.
+	Write a function symmetric to check whether a given binary
+	tree is symmetric.
 	We are only interested in the structure, not in the contents 
 	of the nodes.<p>
 
 
    <DT><B><A HREF="p57.lisp">P57</A> 
    (**) Binary search trees (dictionaries)</B>
-   <DD>Use the predicate add/3, developed in chapter 4 of the course,
-	to write a predicate to construct a binary search tree 
+   <DD>Write a function to construct a binary search tree 
 	from a list of integer numbers.<br>
 	Example:<br>
-	* construct([3,2,5,7,1],T).<br>
-	T = t(3, t(2, t(1, nil, nil), nil), t(5, nil, t(7, nil, nil)))<br><br>
-	Then use this predicate to test the solution of the problem P56.<br>
+	* (construct '(3 2 5 7 1))<br>
+	(3 (2 (1 nil nil) nil) (5 nil (7 nil nil)))<br><br>
+	Then use this function to test the solution of the problem P56.<br>
  	Example:<br>
-	* test-symmetric([5,3,18,1,4,12,21]).<br>
-	Yes<br>
-	* test-symmetric([3,2,5,7,1]).<br>
-	No<p>
+	* (symmetric '(5 3 18 1 4 12 21))<br>
+	T<br>
+	* (symmetric '(3 2 5 7 1))<br>
+	T<br>
+	* (symmetric '(3 2 5 7))<br>
+	NIL<p>
 
 
    <DT><B><A HREF="p58.lisp">P58</A> 
@@ -555,13 +557,14 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
    <DD>Apply the generate-and-test paradigm to construct all symmetric,
 	completely balanced binary trees with a given number of nodes.
 	Example:<br>
-	* sym-cbal-trees(5,Ts).<br>
-	Ts = [t(x, t(x, nil, t(x, nil, nil)), t(x, t(x, nil, nil), nil)), 
-	t(x, t(x, t(x, nil, nil), nil), t(x, nil, t(x, nil, nil)))] 
+	* (sym-cbal-trees-print 5)<br>
+	(X (X NIL (X NIL NIL)) (X (X NIL NIL) NIL))<BR> 
+	(X (X (X NIL NIL) NIL) (X NIL (X NIL NIL)))<BR>
+	...
 	<br><br>
 	How many such trees are there with 57 nodes? Investigate about
-	how many solutions there are for a given number of nodes? What if
-	the number is even? Write an appropriate predicate.<p>
+	how many solutions there are for a given number of nodes. What if
+	the number is even? Write an appropriate function.<p>
 
 
    <DT><B><A HREF="p59.lisp">P59</A> 
@@ -570,76 +573,74 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
 	every node: The height of its left subtree and the height of  
 	its right subtree are almost equal, which means their
 	difference is not greater than one.<br><br>
-	Write a predicate hbal-tree/2 to construct height-balanced
-	binary trees for a given height. The predicate should
-	generate all solutions via backtracking. Put the letter 'x'
+	Write a function hbal-tree to construct height-balanced
+	binary trees for a given height. The function should
+	generate all solutions. Put the letter 'x'
 	as information into all nodes of the tree.<br>
 	Example:<br>
-	* hbal-tree(3,T).<br>
-	T = t(x, t(x, t(x, nil, nil), t(x, nil, nil)), t(x, t(x, nil, nil), 
-	t(x, nil, nil))) ;<br>
-        T = t(x, t(x, t(x, nil, nil), t(x, nil, nil)), t(x, t(x, nil, nil),
-	nil)) ;<br>     
-	etc......No<p>
+	* (hbal-tree 3)<br>
+	(X (X (X NIL NIL) (X NIL NIL)) (X (X NIL NIL) (X NIL NIL)))<BR>
+         = (X (X (X NIL NIL) (X NIL NIL)) (X (X NIL NIL) NIL))<BR>     
+	etc......<p>
 
    <DT><B><A HREF="p60.lisp">P60</A> 
    (**) Construct height-balanced binary trees with a given number of nodes</B>
    <DD>Consider a height-balanced binary tree of height H. What is the 
-	maximum number of nodes it can contain?<br>Clearly, MaxN = 2**H - 1.
-	However, what is the minimum number MinN? This question is more
+	maximum number of nodes it can contain?<br>Clearly, MAXN = 2**H - 1.
+	However, what is the minimum number MINN? This question is more
 	difficult. Try to find a recursive statement and turn it into a
-	predicate minNodes/2 defined as follwos:<br>
+	function minnodes defined as follows:<br>
 	<br>
-	% minNodes(H,N) :- N is the minimum number of nodes in a 
+	  (min-nodes H) returns the minimum number of nodes in a 
 	height-balanced binary tree of height H.<br>
-        (integer,integer), (+,?)<br><br>
+        <br><br>
 	On the other hand, we might ask: what is the maximum height H a
 	height-balanced binary tree with N nodes can have?<br><br>
-	% maxHeight(N,H) :- H is the maximum height of a height-balanced 
+	  (max-height N) returns the maximum height of a height-balanced 
         binary tree with N nodes<br>
-        (integer,integer), (+,?)<br><br>
+        <br><br>
 	Now, we can attack the main problem: construct all the 
-	height-balanced binary trees with a given nuber of nodes.<br><br>
-	% hbal-tree-nodes(N,T) :- T is a height-balanced binary tree with
+	height-balanced binary trees with a given number of nodes.<br><br>
+	  (hbal-tree-nodes N) returns all height-balanced binary trees with
 	N nodes.<br><br>
 	Find out how many height-balanced trees exist for N = 15.<p>
 
    <DT><B><A HREF="p61.lisp">P61</A> 
    (*) Count the leaves of a binary tree</B>
-   <DD>A leaf is a node with no successors. Write a predicate 
-	count-leaves/2 to count them.
+   <DD>A leaf is a node with no successors. Write a function
+	count-leaves to count them.
         <br><br>
-	% count-leaves(T,N) :- the binary tree T has N leaves
+	  (count-leaves tree) returns the number of leaves of binary tree tree
 	<p>
 
    <DT><B><A HREF="p61A.lisp">P61A</A> 
    (*) Collect the leaves of a binary tree in a list</B>
-   <DD>A leaf is a node with no successors. Write a predicate 
-	leaves/2 to collect them in a list.
+   <DD>A leaf is a node with no successors. Write a function
+	leaves to return them in a list.
         <br><br>
-	% leaves(T,S) :- S is the list of all leaves of the binary tree T 
+	  (leaves tree) returns the list of all leaves of the binary tree tree 
 	<p>
 
    <DT><B><A HREF="p62.lisp">P62</A> 
    (*) Collect the internal nodes of a binary tree in a list</B>
    <DD>An internal node of a binary tree has either one or two non-empty
-	successors. Write a predicate internals/2 to collect 
+	successors. Write a function  internals to collect 
         them in a list.
         <br><br>
-	% internals(T,S) :- S is the list of internal nodes of
-        the binary tree T.
+	  (internals tree) returns the list of internal nodes of
+        the binary tree tree.
 	<p>
 
    <DT><B><A HREF="p62B.lisp">P62B</A> 
    (*) Collect the nodes at a given level in a list</B>
    <DD>A node of a binary tree is at level N if the path from the
        root to the node has length N-1. The root node is at level 1.
-       Write a predicate atlevel/3 to collect all nodes at a given
+       Write a function atlevel to collect all nodes at a given
        level in a list.
         <br><br>
-	% atlevel(T,L,S) :- S is the list of nodes of the binary tree
-        T at level L<br><br>
-        Using atlevel/3 it is easy to construct a predicate levelorder/2
+	  (atlevel tree L) returns the list of nodes of the binary tree
+        tree at level L<br><br>
+        Using atlevel it is easy to construct a function levelorder
         which creates the level-order sequence of the nodes. However,
         there are more efficient ways to do that.
 	<p>
@@ -664,17 +665,17 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
 	The address of X's left and right successors are 2*A and 2*A+1,
 	respectively, supposed the successors do exist. This fact can
 	be used to elegantly construct a complete binary tree structure.
-	Write a predicate complete-binary-tree/2 with the following
+	Write a function complete-binary-tree with the following
 	specification:
 	<br><br>
-	% complete-binary-tree(N,T) :- T is a complete binary tree with
-	N nodes. (+,?)<br><br>
-	Test your predicate in an appropriate way.<p>
+	  (complete-binary-tree N) returns a complete binary tree with
+	N nodes<br><br>
+	Test your function in an appropriate way.<p>
 
 
    <DT><B><A HREF="p64.lisp">P64</A> 
    (**) Layout a binary tree (1)</B>
-   <DD> Given a binary tree as the usual Prolog term t(X,L,R) (or nil).
+   <DD> Consider a binary tree as the usual symbolic expression (X L R) or nil.
         As a preparation for drawing the tree, a layout algorithm is
         required to determine the position of each node in a rectangular
         grid. Several layout methods are conceivable, one of them is
@@ -689,20 +690,20 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
               the tree</li>
         </ul><br><br>
 
-        In order to store the position of the nodes, we extend the Prolog 
-        term representing a node (and its successors) as follows:
+        In order to store the position of the nodes, we extend the symbolic
+        expression representing a node (and its successors) as follows:
         <br clear="left"><br>
-        % nil represents the empty tree (as usual)<br>
-	% t(W,X,Y,L,R) represents a (non-empty) binary tree with root
+          nil represents the empty tree (as usual)<br>
+	  (W X Y L R) represents a (non-empty) binary tree with root
         W "positioned" at (X,Y), and subtrees L and R<br><br>
 
-	Write a predicate layout-binary-tree/2 with the following
+	Write a function layout-binary-tree with the following
 	specification:
 	<br><br>
-	% layout-binary-tree(T,PT) :- PT is the "positioned" binary
-        tree obtained from the binary tree T. (+,?)<br><br>
+	  (layout-binary-tree tree) returns the "positioned" binary
+        tree obtained from the binary tree tree<br><br>
 
-	Test your predicate in an appropriate way. 
+	Test your function in an appropriate way. 
         <br clear="left"><p>
 
    <DT><B><A HREF="p65.lisp">P65</A> 
@@ -710,10 +711,10 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
    <DD><img src="p65.gif" align="left" hspace="20">
         An alternative layout method is depicted in the illustration
         opposite. Find out the rules and write the corresponding
-        Prolog predicate. Hint: On a given level, the horizontal
+        Lisp function. Hint: On a given level, the horizontal
         distance between neighboring nodes is constant.<br><br>
         Use the same conventions as in problem P64 and test your 
-        predicate in an appropriate way.
+        function in an appropriate way.
         <br clear="left"><p>
 
    <DT><B><A HREF="p66.lisp">P66</A>
@@ -722,12 +723,12 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
         Yet another layout strategy is shown in the illustration
         opposite. The method yields a very compact layout while 
         maintaining a certain symmetry in every node. Find out 
-        the rules and write the corresponding Prolog predicate.
+        the rules and write the corresponding Lisp function.
         Hint: Consider the horizontal distance between a node and its
         successor nodes. How tight can you pack together two subtrees to
         construct the combined binary tree?<br><br>
         Use the same conventions as in problem P64 and P65 and 
-        test your predicate in an appropriate way. Note: This is
+        test your function in an appropriate way. Note: This is
         a difficult problem. Don't give up too early!<br><br>
         Which layout do you like most?
         <br clear="right"><p>
@@ -739,19 +740,11 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
        following type (see example opposite):<br><br>
        a(b(d,e),c(,f(g,)))<br><br>
        <b><A HREF="p67a.lisp">a)</A></b>
-       Write a Prolog predicate which generates this string
+       Write a Lisp function which generates this string
        representation, if the tree is given as usual (as nil or 
-       t(X,L,R) term). Then write a predicate which does 
+       (X L R) expression). Then write a function which does 
        this inverse; i.e. given the string representation, 
-       construct the tree in the usual form. Finally, combine the 
-       two predicates in a single predicate tree-string/2 which 
-       can be used in both directions.<br><br>
-       <b><A HREF="p67b.lisp">b)</A></b>
-       Write the same predicate tree-string/2 using difference lists
-       and a single predicate tree-dlist/2 which does the conversion 
-       between a tree and a difference list in both directions.<br><br>
-       For simplicity, suppose the information in the nodes is a single 
-       letter and there are no spaces in the string.
+       construct the tree in the usual form.<br><br>
        <br clear="left"><p>
        
    <DT><B><A HREF="p68a.lisp">P68</A>
@@ -759,24 +752,19 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
    <DD>We consider binary trees with nodes that are identified by
        single lower-case letters, as in the example of problem P67.<br><br>
        <b><A HREF="p68a.lisp">a)</A></b>
-        Write predicates preorder/2 and inorder/2 that construct
+        Write functions preorder and inorder that construct
        the preorder and inorder sequence of a given binary tree, 
-       respectively. The results should be atoms, e.g. 'abdecfg' 
+       respectively. The results should be lists, e.g. (A B D E C F G) 
        for the preorder sequence of the example in problem P67.<br><br>
        <b><A HREF="p68b.lisp">b)</A></b>
-       Can you use preorder/2 from problem part a) in the reverse
-       direction; i.e. given a preorder sequence, construct a 
-       corresponding tree? If not, make the necessary arrangements.<br><br>
+       Can you write the inverse of preorder from problem part a)
+       ; i.e. given a preorder sequence, construct a 
+       corresponding tree?<br><br>
        <b><A HREF="p68c.lisp">c)</A></b>
        If both the preorder sequence and the inorder sequence of
        the nodes of a binary tree are given, then the tree is determined
-       unambiguously. Write a predicate pre-in-tree/3 that does 
+       unambiguously. Write a function pre-in-tree that does 
        the job.<br><br>
-       <b><A HREF="p68d.lisp">d)</A></b>
-       Solve problems a) to c) using difference lists. Cool! Use the
-       predefined predicate time/1 to compare the solutions.<br><br>
-       What happens if the same character appears in more than one node.
-       Try for instance pre-in-tree(aba,baa,T).    
        <p>
 
    <DT><B><A HREF="p69.lisp">P69</A>
@@ -786,10 +774,9 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
        tree can be represented by the preorder sequence of its nodes in which
        dots (.) are inserted where an empty subtree (nil) is encountered
        during the tree traversal. For example, the tree shown in problem P67
-       is represented as <tt>'abd..e..c.fg...'</tt>. First, try to establish a 
-       syntax (BNF or syntax diagrams) and then write a predicate
-       tree-dotstring/2 which does the conversion in both directions. 
-       Use difference lists.
+       is represented as <tt>"ABD..E..C.FG..."</tt>. First, try to establish a 
+       syntax (BNF or syntax diagrams) and then write functions
+       tree and dotstring which do the conversion.
        <p>
 
 </DL>
@@ -800,34 +787,36 @@ given as test cases in <a href="p54.lisp">p54.lisp</a>.
 a (possibly empty) set of successors which are multiway trees 
 themselves. A multiway tree is never empty. The set of successor
 trees is sometimes called a forest.</font></strong> <br><br>
-<img src="p70.gif" align="left" hspace="20">
-<br>In Prolog we represent a multiway tree by a term t(X,F), where X denotes 
-the root node and F denotes the forest of successor trees (a Prolog list).
-The example tree depicted opposite is therefore represented by the 
-following Prolog term:
-<pre>
-T = t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])
-</pre>
+<br>In Lisp we represent a multiway tree by either a symbol (root with
+no children) or by an expression (X C1 C2 ... CN), where X denotes 
+the root node and Ci denote each of the children.
+   The following pictures show how multiway tree structures are 
+   represented in Lisp.
+   <br /> 
+   <img src="p73.png" vspace="15">
+   <br />   
+   Note that in this Lisp notation a node with successors (children)
+   in the tree is always the first element in a list, followed by its
+   children. 
 </p>
 <br clear="left">
 <DL>
    <DT><B><A HREF="p70B.lisp">P70B</A> 
-   (*) Check whether a given term represents a multiway tree</B>
-   <DD>Write a predicate istree/1 which succeeds if and only if its argument
-        is a Prolog term representing a multiway tree.<br>
+   (*) Check whether a given expression represents a multiway tree</B>
+   <DD>Write a function istree which succeeds if and only if its argument
+        is a Lisp expression representing a multiway tree.<br>
 	Example:<br>
-	* istree(t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])).<br>
-        Yes<br><br>
+	* (istree '(a (f g) c (b d e)))<br>
+        T<br><br>
  
   <DT><B><A HREF="p70C.lisp">P70C</A> 
    (*) Count the nodes of a multiway tree</B>
-   <DD>Write a predicate nnodes/1 which counts the nodes of a given
+   <DD>Write a function nnodes which counts the nodes of a given
         multiway tree.<br>
 	Example:<br>
-	* nnodes(t(a,[t(f,[])]),N).<br>
-        N = 2<br><br>
-        Write another version of the predicate that allows
-        for a flow pattern (o,i).<br><br>
+	* (nnodes '(a f))<br>
+        2<br><br>
+        <br><br>
         
 
    <DT><B><A HREF="p70.lisp">P70</A> 
@@ -841,9 +830,9 @@ T = t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])
    By this rule, the tree in the figure opposite is 
    represented as: <tt>afg^^c^bd^e^^^</tt>
    <br><br>
-   Define the syntax of the string and write a predicate tree(String,Tree)
-   to construct the Tree when the String is given. Work with atoms (instead
-   of strings). Make your predicate work in both directions.
+   Define the syntax of the string and write a function (tree string)
+   to construct the tree when the string is given. Work with lists (instead
+   of strings). Write also an inverse function.
    <br clear="right"> 
    <p>
 
@@ -852,50 +841,49 @@ T = t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])
    <DD>We define the internal path length of a multiway tree as the
    total sum of the path lengths from the root to all nodes of the tree.
    By this definition, the tree in the figure of problem P70 has an internal
-   path length of 9. Write a predicate ipl(Tree,IPL) for the flow 
-   pattern (+,-). 
+   path length of 9. Write a function (ipl tree) to compute it.
    <p>
 
    <DT><B><A HREF="p72.lisp">P72</A> 
    (*) Construct the bottom-up order sequence of the tree nodes</B>
-   <DD>Write a predicate bottom-up(Tree,Seq) which constructs the
-   bottom-up sequence of the nodes of the multiway tree Tree. Seq
-   should be a Prolog list. What happens if you run your predicate 
-   backwords?
+   <DD>Write a function (bottom-up mtree) which returns the
+   bottom-up sequence of the nodes of the multiway tree mtree as
+   a Lisp list.
    <p>
 
    <DT><B><A HREF="p73.lisp">P73</A> 
-   (**) Lisp-like tree representation</B>
-   <DD>There is a particular notation for multiway trees in <b>Lisp</b>.
-   Lisp is a prominent functional programming language, which is used 
-   primarily for artificial intelligence problems. As such it is one of 
-   the main competitors of Prolog. In Lisp almost everything is a list, 
-   just as in Prolog everything is a term.
+   (**) Prolog-like tree representation</B>
+   <DD>There is a particular notation for multiway trees in <b>Prolog</b>.
+   Prolog is a prominent functional programming language, which is used 
+   primarily for artificial intelligence problems. As such, it is one of 
+   the main competitors of Lisp. In Prolog everything is a term, 
+   just as in Lisp everything is a symbolic expression.
    <br /><br />
-   The following pictures show how multiway tree structures are 
-   represented in Lisp.
-   <br /> 
-   <img src="p73.png" vspace="15">
-   <br />   
-   Note that in the "lispy" notation a node with successors (children)
-   in the tree is always the first element in a list, followed by its
-   children. 
-   The "lispy" representation of a multiway tree is a sequence of
-   atoms and parentheses '(' and ')', which we shall collectively 
+<img src="p70.gif" align="left" hspace="20">
+In Prolog we represent a multiway tree by a term t(X,F), where X
+   denotes the root node and F denotes the forest of successor trees
+   (a Prolog list).
+The example tree depicted opposite is represented by the 
+following Lisp expression:
+<pre>
+t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])
+</pre>
+   The Prolog representation of a multiway tree is a sequence of
+   atoms, commas, parentheses "(" and ")", and brackets "[" and
+   "]".which we shall collectively  
    call "tokens". We can represent this sequence of tokens
-   as a Prolog list; e.g. the lispy expression (a (b c)) could be 
-   represented as the Prolog list ['(', a, '(', b, c, ')', ')'].
-   Write a predicate tree-ltl(T,LTL) which constructs the "lispy
-   token list" LTL if the tree is given as term T in the usual
-   Prolog notation.<br /><br />
+   as a Lisp list; e.g. the Prolog expression t(a,[t(b,[]),t(c,[])]) could be 
+   represented as the Lisp list ( t "(" a "," "[" t "(" b "," "[" "]" ")" "," t "(" c "," "[" "]" ")" "]" ")" ).
+   Write a function (tree-ptl expr) which returns the "Prolog
+   token list" if the tree is given as an expression expr in the usual
+   Lisp notation.<br /><br />
    Example:<br>
-   * tree-ltl(t(a,[t(b,[]),t(c,[])]),LTL).<br>
-   LTL = ['(', a, '(', b, c, ')', ')']
+   * (tree-ptl '(a b c))<br>
+   ( T "(" A "," "[" T "(" B "," "[" "]" ")" "," T "(" C "," "[" "]" ")" "]" ")" )
    <p>
-   As a second, even more interesting exercise try to rewrite
-   tree-ltl/2 in a way that the inverse conversion is also
-   possible: Given the list LTL, construct the Prolog tree T. 
-   Use difference lists.
+   As a second, even more interesting exercise try to write
+   the inverse conversion: Given the list PTL, construct the corresponding
+   Lisp tree.
    <p>
 </DL>
 
@@ -904,55 +892,29 @@ T = t(a,[t(f,[t(g,[])]),t(c,[]),t(b,[t(d,[]),t(e,[])])])
 <font color="red">A graph is defined as a set of <i>nodes</i> 
 and a set of <i>edges</i>, where each edge is a pair of nodes.</font></strong>
 <p>
-There are several ways to represent graphs in Prolog. One method is to
-represent each edge separately as one clause (fact). In this form,
-the graph depicted below is represented as the following predicate:
+There are several ways to represent graphs in Lisp. 
 <img src="graph1.gif" align="left" hspace="20" vspace="10">
-<pre>
-edge(h,g).
-edge(k,f).
-edge(f,b).
-...
-</pre>
-We call this <i>edge-clause form</i>. Obviously,
-isolated nodes cannot be represented.
-Another method is to represent the whole graph as one data object. According
+One method is to represent the whole graph as one data object. According
 to the definition of the graph as a pair of two sets (nodes and edges), we
-may use the following Prolog term to represent the example graph:
+may use the following Lisp expression to represent the example graph:
 <pre>
-graph([b,c,d,f,g,h,k],[e(b,c),e(b,f),e(c,f),e(f,k),e(g,h)])
+((b c d f g h k) ( (b c) (b f) (c f) (f k) (g h) ))
 </pre>
-We call this <i>graph-term form</i>. Note, that the lists are kept sorted,
+We call this <i>graph-expression form</i>. Note, that the lists are kept sorted,
 they are really <i>sets</i>, without duplicated elements. Each edge 
 appears only once in the edge list; i.e. an edge from
-a node x to another node y is represented as e(x,y), the term e(y,x)
-is not present. <b>The graph-term form is our default representation.</b>
-In SWI-Prolog there are predefined predicates to work 
+a node x to another node y is represented as (x y), the expression (y
+x)
+is not present. <b>The graph-expression form is our default representation.</b>
+In Common Lisp there are predefined functions to work 
 with sets.
 <p>
 A third representation method is to associate with each node the set
 of nodes that are adjacent to that node. We call this the
 <i>adjacency-list form</i>. In our example:
 <pre>
-[n(b,[c,f]), n(c,[b,f]), n(d,[]), n(f,[b,c,k]), ...]
+( (b (c f)) (c (b f)) (d ()) (f (b c k)) ...)
 </pre>
-The representations we introduced so far are Prolog terms and therefore
-well suited for automated processing, but their syntax  is not very 
-user-friendly. Typing the terms by hand is cumbersome and error-prone.
-We can define a more compact and "human-friendly" notation 
-as follows: A graph is represented by a list of atoms and terms of 
-the type X-Y (i.e. functor '-' and arity 2). The atoms stand for 
-isolated nodes, the X-Y terms describe edges. If an X appears as an 
-endpoint of an edge, it is automatically defined as a node. 
-Our example could be written as:<br>
-<pre>
-[b-c, f-c, g-h, d, f-b, k-f, h-g]
-</pre>
-We call this the <i>human-friendly form</i>. As the example shows, 
-the list does not have to be sorted and may even contain the same 
-edge multiple times. Notice the isolated node d. (Actually, isolated
-nodes do not even have to be atoms in the Prolog sense, they can
-be compound terms, as in <tt>d(3.75,blue)</tt> instead of d in the example).
 <p>
 <br clear="left">
 <img src="graph2.gif" align="left" hspace="20" vspace="10">
@@ -963,44 +925,32 @@ discussed above are slightly modified. The example graph opposite
 is represented as follows:
 <p>
 <dl>
-<dt><i>Arc-clause form</i></dt>
-<dd><tt>arc(s,u).<br>arc(u,r).<br>...</tt></dd>
-<p>
-<dt><i>Graph-term form</i></dt>
-<dd><tt>digraph([r,s,t,u,v],[a(s,r),a(s,u),a(u,r),a(u,s),a(v,u)])</tt></dd>
+<dt><i>Graph-expression form</i></dt>
+<dd><tt>( (r s t u v) ( (s r) (s u) (u r) (u s) (v u) ) )</tt></dd>
 <p>
 <dt><i>Adjacency-list form</i></dt>
-<dd><tt>[n(r,[]),n(s,[r,u]),n(t,[]),n(u,[r]),n(v,[u])]</tt><br>
+<dd><tt>( (r ()) (s (r u)) (t ()) (u (r)) (v (u)) )</tt><br>
 Note that the adjacency-list does not have the information on whether
 it is a graph or a digraph.</dd>
-<p>
-<dt><i>Human-friendly form</i></dt>
-<dd><tt>[s > r, t, u > r, s > u, u > s, v > u] </tt></dd>
 <p>
 </dl>
 <p>
 <br clear="left">
 Finally, graphs and digraphs may have additional information attached
 to nodes and edges (arcs). For the nodes, this is no problem, as we can
-easily replace the single character identifiers with arbitrary compound
-terms, such as <tt>city('London',4711)</tt>. On the other hand, for
+easily replace the single symbol identifiers with arbitrary symbolic
+expressions, such as <tt>("London" 4711)</tt>. On the other hand, for
 edges we have to extend our notation. Graphs with additional information
 attached to edges are called <b>labelled graphs</b>.<p>
 <img src="graph3.gif" align="left" hspace="20" vspace="10">
 <dl>
-<dt><i>Arc-clause form</i></dt>
-<dd><tt>arc(m,q,7).<br>arc(p,q,9).<br>arc(p,m,5).</tt></dd>
-<p>
-<dt><i>Graph-term form</i></dt>
-<dd><tt>digraph([k,m,p,q],[a(m,p,7),a(p,m,5),a(p,q,9)])</tt></dd>
+<dt><i>Graph-expression form</i></dt>
+<dd><tt>( (k m p q) ( (m p 7) (p m 5) (p q 9) ) )</tt></dd>
 <p>
 <dt><i>Adjacency-list form</i></dt>
-<dd><tt>[n(k,[]),n(m,[q/7]),n(p,[m/5,q/9]),n(q,[])]</tt><br>
-Notice how the edge information has been packed into a term with
-functor '/' and arity 2, together with the corresponding node.</dd>
-<p>
-<dt><i>Human-friendly form</i></dt>
-<dd><tt>[p>q/9, m>q/7, k, p>m/5]</tt></dd>
+<dd><tt>( (k ()) (m ((q 7))) (p ((m 5) (q 9))) (q ()) )</tt><br>
+Notice how the edge information has been packed into a list with
+two elements, the corresponding node and the extra information.</dd>
 <p>
 </dl>
 <br clear="left">
@@ -1013,8 +963,8 @@ between two given nodes.
 <DL>
    <DT><B><A HREF="p80.lisp">P80</A> 
    (***) Conversions</B>
-   <DD>Write predicates to convert between the different graph 
-   representations. With these predicates, all representations
+   <DD>Write functions to convert between the different graph 
+   representations. With these functions, all representations
    are equivalent; i.e. for the following problems you can always pick
    freely the most convenient form. The reason this problem is rated (***) is
    not because it's particularly difficult, but because it's a lot
@@ -1023,58 +973,59 @@ between two given nodes.
 
    <DT><B><A HREF="p81.lisp">P81</A> 
    (**) Path from one node to another one</B>
-   <DD>Write a predicate path(G,A,B,P) to find an acyclic path P from 
-   node A to node b in the graph G. The predicate should return all paths
-   via backtracking.
+   <DD>Write a function (path g a b) to return an acyclic path from 
+   node a to node b in the graph g. The function should return all paths.
    <p>
-
+   
    <DT><B><A HREF="p82.lisp">P82</A> 
    (*) Cycle from a given node</B>
-   <DD>Write a predicate cycle(G,A,P) to find a closed path (cycle) P
-   starting at a given node A in the graph G. The predicate should 
-   return all cycles via backtracking.
+   <DD>Write a function (cycle g a) to find a closed path (cycle)
+   starting at a given node a in the graph g. The function should 
+   return all cycles.
    <p>
 </DL>
    <img src="p83.gif" align="left" hspace="20" vspace="10">
 <dl>
    <DT><B><A HREF="p83.lisp">P83</A> 
    (**) Construct all spanning trees</B>
-   <DD>Write a predicate s-tree(Graph,Tree) to construct 
+   <DD>Write a function (s-tree graph) to construct 
    (by backtracking) all spanning trees
-   of a given graph. With this predicate, find out how many 
+   of a given graph. With this function, find out how many 
    spanning trees there are for the graph depicted to the left. 
-   The data of this example graph can be found in the file p83.dat.
-   When you have a correct solution for the s-tree/2 predicate, use it to 
-   define two other useful predicates: is-tree(Graph) and 
-   is-connected(Graph). Both are five-minutes tasks!
+   The data of this example graph can be found in the file
+   <A HREF="p83.dat">p83.dat</A>.
+   When you have a correct solution for the s-tree function, use it to 
+   define two other useful functions: (is-tree graph) and 
+   (is-connected graph). Both are five-minutes tasks!
    <p>
 </dl>
 <img src="p84.gif" align="right" hspace="20" vspace="10">
 <dl>
    <DT><B><A HREF="p84.lisp">P84</A> 
-   (**) Construct the minimal spanning tree</B>
-   <DD>Write a predicate ms-tree(Graph,Tree,Sum) to construct 
-   the minimal spanning tree of a given labelled graph. Hint:
+   (**) Construct a minimum spanning tree</B>
+   <DD>Write a function (ms-tree graph) to construct a minimum spanning tree
+   of a given labelled graph. The function must also return the minimum weight.
+   Hint:
    Use the algorithm of Prim. A small modification of the solution of 
    P83 does the trick. The data of the example graph to the right can
-   be found in the file p84.dat.<p>    
+   be found in the file <A HREF="p84.dat">p84.dat</A>.<p>    
 </dl>
 <br clear="left">
 <dl>
    <DT><B><A HREF="p85.lisp">P85</A> 
    (**) Graph isomorphism</B>
-   <dd>Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is
-   a bijection f: N1 -> N2 such that for any nodes X,Y of N1, X and Y 
-   are adjacent if and only if f(X) and f(Y) are adjacent.<P>
-   Write a predicate that determines whether two graphs are isomorphic.
+   <dd>Two graphs (n1 e1) and (n2 e2) are isomorphic if there is
+   a bijection f: n1 -> n2 such that for any nodes x,y of n1, x and y 
+   are adjacent if and only if f(x) and f(y) are adjacent.<P>
+   Write a function that determines whether two graphs are isomorphic.
    Hint: Use an open-ended list to represent the function f.
 </dl>
 <dl>
    <DT><B><A HREF="p86.lisp">P86</A> 
    (**) Node degree and graph coloration</B>
-   <DD><b>a)</b> Write a predicate degree(Graph,Node,Deg) that determines 
+   <DD><b>a)</b> Write a function (degree graph node) that determines 
    the degree of a given node.<p>
-   <b>b)</b> Write a predicate that generates a list of all nodes of a 
+   <b>b)</b> Write a function that generates a list of all nodes of a 
    graph sorted according to decreasing degree.<p>
    <b>c)</b> Use Welch-Powell's algorithm to paint the nodes of a graph
    in such a way that adjacent nodes have different colors.
@@ -1083,7 +1034,7 @@ between two given nodes.
    <DT><B><A HREF="p87.lisp">P87</A> 
    (**) Depth-first order graph traversal  
    <A HREF="p87a.lisp">(alternative solution)</A></B>
-   <DD>Write a predicate that generates a depth-first order graph
+   <DD>Write a function that generates a depth-first order graph
    traversal sequence. The starting point should be specified,
    and the output should be a list of nodes that are reachable from
    this starting point (in depth-first order).
@@ -1092,17 +1043,17 @@ between two given nodes.
    <DT><B><A HREF="p88.lisp">P88</A> 
    (**) Connected components
     <A HREF="p88a.lisp">(alternative solution)</A></B>
-   <DD>   Write a predicate that splits a graph into its connected components.
+   <DD>   Write a function that splits a graph into its connected components.
 
    <p>
 
    <DT><B><A HREF="p89.lisp">P89</A> 
    (**) Bipartite graphs</B>
-   <DD>Write a predicate that finds out whether a given graph is bipartite.
+   <DD>Write a function that finds out whether a given graph is bipartite.
 
    <p>
-
 </dl>
+
 <br>
 <H2>Miscellaneous Problems</H2>
 <DL>
@@ -1113,7 +1064,7 @@ between two given nodes.
    each other; i.e., no two queens are in the same row, the same column, 
    or on the same diagonal.<br><br>
    Hint: Represent the positions of the queens as a list of numbers 1..N.
-   Example: [4,2,7,3,6,8,5,1] means that the queen in the first column
+   Example: (4 2 7 3 6 8 5 1) means that the queen in the first column
    is in row 4, the queen in the second column is in row 2, etc.
    Use the generate-and-test paradigm.<p> 
 
@@ -1123,10 +1074,10 @@ between two given nodes.
    an NxN chessboard in such a way that it visits every square exactly
    once?<br><br>
    Hints: Represent the squares by pairs of their coordinates of
-   the form X/Y, where both X and Y are integers between 1 and N.
-   (Note that '/' is just a convenient functor, not division!)
-   Define the relation jump(N,X/Y,U/V) to express the fact that a
-   knight can jump from X/Y to U/V on a NxN chessboard. And finally,
+   the form (X Y), where both X and Y are integers between 1 and N.
+   Define a function (jump N (X Y)) that returns a list of the positions (U V)
+   such that a knight can jump from (X Y) to (U V) on a NxN chessboard.
+   And finally,
    represent the solution of our problem as a list of N*N knight 
    positions (the knight's tour).
    <p>
@@ -1139,39 +1090,38 @@ between two given nodes.
    <img src="p92a.gif" hspace="20" vspace="10">
    <img src="p92b.gif" hspace="20" vspace="10">
    <p>
-   Anyway the puzzle goes like this: Given a tree with N nodes 
-   (and hence N-1 edges). Find a way to enumerate the nodes from 1 to N 
-   and, accordingly, the edges from 1 to N-1 in such a way, that for 
-   each edge K the difference of its node numbers equals to K. 
+   Anyway the puzzle goes like this: given a tree with N nodes 
+   (and hence N-1 edges), find a way to enumerate the nodes from 1 to N 
+   and, accordingly, the edges from 1 to N-1 in such a way that, for 
+   each edge K, the difference of its node numbers equals K. 
    The conjecture is that this is always possible.<P>
    For small trees the problem is easy to solve by hand. However, for
    larger trees, and 14 is already very large, it is extremely difficult 
    to find a solution. And remember, we don't know for sure whether there is
    always a solution!<P>
-   Write a predicate that calculates a numbering scheme for a given
-   tree. What is the solution for the larger tree pictured above?<P>   
+   Write a function that calculates a numbering scheme for a given
+   tree. What is the solution for the <a href=p92b.dat>larger tree</a> pictured above?<P>   
 
    <DT><B><A HREF="p93.lisp">P93</A> 
    (***) An arithmetic puzzle</B>
    <dd>Given a list of integer numbers, find a correct way of inserting 
    arithmetic signs (operators) such that the result is a correct equation.
-   Example: With the list of numbers [2,3,5,7,11] we can form the
+   Example: With the list of numbers (2 3 5 7 11) we can form the
    equations  2-3+5+7 = 11  or  2 = (3*5+7)/11 (and ten others!).<p>
 
    <DT><B><A HREF="p94.lisp">P94</A> 
    (***) Generate K-regular simple graphs with N nodes</B> 
-   <DD>In a K-regular graph all nodes have a degree of K; i.e. the number
-   of edges incident in each node is K. How many (non-isomorphic!) 3-regular
-   graphs with 6 nodes are there? See also a <a href="p94.txt">table of results</a>
-   and a <a href="GraphLayout/index.html">Java applet</a> that can represent
-   graphs geometrically.
+   <DD>In a K-regular graph all nodes have degree K; i.e. the number
+   of edges incident to each node is K. How many (non-isomorphic!) 3-regular
+   graphs with 6 nodes are there? See also a
+   <a href="p94.txt">table of results</a>.
    <p> 
 
    <DT><B><A HREF="p95.lisp">P95</A> 
    (**) English number words</B>
    <DD>On financial documents, like cheques, numbers must sometimes be 
    written in full words. Example: 175 must be written as one-seven-five.
-   Write a predicate full-words/1 to print (non-negative) integer numbers
+   Write a function (full-words n) to print (non-negative) integer numbers
    in full words.
    <p> 
 
@@ -1184,9 +1134,9 @@ between two given nodes.
    by the syntax diagram (railroad chart) opposite.
    Transform the syntax diagram into a system of syntax diagrams
    which do not contain loops; i.e. which are purely recursive.
-   Using these modified diagrams, write a predicate identifier/1 that can
-   check whether or not a given string is a legal identifier.<br><br>
-   % identifier(Str) :- Str is a legal identifier
+   Using these modified diagrams, write a function (identifier str) that can
+   check whether or not a given string s is a legal identifier.<br><br>
+   * (identifier str) returns t when str is a legal identifier.
    <br clear="left">
 
    <DT><B><A HREF="p97.lisp">P97</A> 
@@ -1230,7 +1180,7 @@ between two given nodes.
    The "Sunday Telegraph" newspaper wrote: "Nonograms are puzzles from 
    Japan and are currently published each week only in The Sunday 
    Telegraph.  Simply use your logic and skill to complete the grid 
-   and reveal a picture or diagram." As a Prolog programmer, you are in 
+   and reveal a picture or diagram." As a Lisp programmer, you are in 
    a better situation: you can have your computer do the work! Just write
    a little program ;-).<p>
    The puzzle goes like this: Essentially, each row and column of a 
@@ -1253,8 +1203,8 @@ between two given nodes.
            2 1 5 1                     2 1 5 1                      
    </pre>
    For the example above, the problem can be stated as the two lists
-   [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]] and 
-   [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]] which give the
+   ((3) (2 1) (3 2) (2 2) (6) (1 5) (6) (1) (2)) and 
+   ((1 2) (3 1) (1 5) (7 1) (5) (3) (4) (3)) which give the
    "solid" lengths of the rows and columns, top-to-bottom and
    left-to-right, respectively. Published puzzles are larger than this
    example, e.g. 25 x 20, and apparently always have unique solutions.
@@ -1288,8 +1238,8 @@ between two given nodes.
    that the objective is a clean solution, not just a quick-and-dirty hack!<br>
    (2) Reading the data file is a tricky problem for which a solution 
    is provided in the file
-   <a href="p99-readfile.lisp">p99-readfile.lisp</a>. Use the predicate
-   read_lines/2.<br>
+   <a href="p99-readfile.lisp">p99-readfile.lisp</a>. Use the function
+   read-lines, which returns the words and the grid in a 2-element list.<br>
    (3) For efficiency reasons it is important, at least for
    larger puzzles, to sort the words and the sites in a particular order.
    For this part of the problem, the solution of
@@ -1299,12 +1249,7 @@ between two given nodes.
 
 <hr>
 <!-- hhmts start -->
-Last modified: Mon Oct 16 21:23:19 BRT 2006
+Last modified: Thu Sep 19 07:02:13 BRT 2013
 <!-- hhmts end -->
 </body>
 </html>
-
-
-
-
-
