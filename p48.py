@@ -102,7 +102,7 @@ def combine_list_to_str(calc):
 
 
 def evaluate(expr):
-    print(expr)
+    #print(expr)
     if len(expr) == 1:
         return expr[0]
     else:
@@ -121,7 +121,7 @@ def evaluate(expr):
             return int(evaluate(new_expr))
 
 
-# P48: Truth tables for logical expressions (3).
+# P48: Evaluates logical expressions (3).
 #       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
 #       And only in the form (A and (A or B)) and not ((A or B) and A).
 def p48(variables, expr):
@@ -129,6 +129,22 @@ def p48(variables, expr):
     return evaluate(func)
 
 
+# P48: Truth tables for logical expressions (3).
+#       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+#       And only in the form (A and (A or B)) and not ((A or B) and A).
+def p48tt(variables, expr):
+    print("---- " + str(expr) + " ----")
+    for i in range(len(variables)):
+        print(chr(ord("A") + i) + " ", end="")
+    print("x")
+    for i in range(2**len(variables)):
+        args = []
+        for j in range(len(variables)-1, -1, -1):
+            value = (i >> j) & 1
+            args.append(value)
+            print(str(value) + " ", end="")
+        print(p48(args, expr))
+
+
 if __name__ == "__main__":
-    ret = p48([1, 0, 0], "((A and (B or C)) equ ((A and B) or (A and C)))")
-    print(ret)
+    p48tt([1, 0, 0], "((A and (B or C)) equ ((A and B) or (A and C)))")
