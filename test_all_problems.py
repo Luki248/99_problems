@@ -44,6 +44,7 @@ import p39
 import p40
 import p41
 import p46
+import p47
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -237,6 +238,12 @@ class TestSolutionsMethods(unittest.TestCase):
 
     def test_p46h(self):
         self.assertEqual(p46.f_impl(1, 0), 0)
+
+    def test_p46(self):
+        self.assertEqual(p46.p46("and(1, or(1, not(0)))"), 1)
+
+    def test_p47(self):
+        self.assertEqual(p47.p47(1, 0, "(A and (A or (not B)))"), 1)
 
 
 if __name__ == "__main__":

@@ -155,8 +155,47 @@ def tt_impl():
     print(a, b, x, "\n")
 
 
+def make_expr(calc):
+    expr = ""
+    i = 0
+    while i < len(calc):
+        if calc[i:i+2] == "or":
+            expr += "f_or"
+            i += 1
+        elif calc[i:i+3] == "and":
+            expr += "f_and"
+            i += 2
+        elif calc[i:i+3] == "not":
+            expr += "f_not"
+            i += 2
+        elif calc[i:i+3] == "nor":
+            expr += "f_nor"
+            i += 2
+        elif calc[i:i+3] == "xor":
+            expr += "f_xor"
+            i += 2
+        elif calc[i:i+3] == "equ":
+            expr += "f_equ"
+            i += 2
+        elif calc[i:i+4] == "nand":
+            expr += "f_nand"
+            i += 3
+        elif calc[i:i+4] == "impl":
+            expr += "f_impl"
+            i += 3
+        else:
+            expr += calc[i]
+        i += 1
+    return expr
+
+
+def p46(expr):
+    res = eval(make_expr(expr))
+    return res
+
+
 # P46: Truth tables for logical expressions.
-def p46():
+def p46tt():
     print("---- not ----")
     tt_not()
 
@@ -198,4 +237,4 @@ def p46():
 
 
 if __name__ == "__main__":
-    p46()
+    p46tt()
