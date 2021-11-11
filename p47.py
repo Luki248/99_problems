@@ -81,6 +81,7 @@ def combine_list_to_str(calc):
 
 # P47: Evaluates logical expressions (2).
 #       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+#       And only in the form (A and (A or B)) and not ((A or B) and A).
 def p47(a, b, expr):
     #print(expr)
     func = lexer(expr)
@@ -95,6 +96,7 @@ def p47(a, b, expr):
 
 # P47: Truth table for logic expression (2).
 #       You can only evaluate expressions of the form (A or B) and not (A or B or B) (at maximum two inputs per function).
+#       And only in the form (A and (A or B)) and not ((A or B) and A).
 def p47tt(expr):
     print("---- " + str(expr) + " ----")
     print("a b x")
