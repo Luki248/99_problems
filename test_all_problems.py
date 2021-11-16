@@ -47,6 +47,7 @@ import p46
 import p47
 import p48
 import p49
+import p50
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -254,6 +255,11 @@ class TestSolutionsMethods(unittest.TestCase):
     def test_p49(self):
         self.assertEqual(p49.p49(3), ['000', '001', '011', '010', '110',
                          '111', '101', '100'])
+
+    def test_p50(self):
+        self.assertEqual(p50.p50([["A", 45], ["B", 13], ["C", 12], ["D", 16], ["E", 9], ["F", 5]]),
+                         [['A', '0'], ['D', '111'], ['B', '101'], ['C', '100'], ['E', '1101'],
+                         ['F', '1100']])
 
 
 if __name__ == "__main__":
