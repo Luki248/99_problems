@@ -164,7 +164,7 @@ class TestSolutionsMethods(unittest.TestCase):
         self.assertEqual(len(p25.p25([1, 2, 3, 4, 5, 6, 7, 8, 9])), 9)
 
     def test_p26(self):
-        self.assertEqual(len(p26.p26(3, [1, 2, 3, 4])), 3)
+        self.assertEqual(len(p26.p26(3, [1, 2, 3, 4])), 16)
 
     def test_p27a(self):
         self.assertEqual(len(p27.p27a([1, 2, 3, 4, 5, 6, 7, 8, 9])), 362880)
