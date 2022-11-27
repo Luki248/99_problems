@@ -49,6 +49,7 @@ import p48
 import p49
 import p50
 import p54A
+import p55
 
 
 class TestSolutionsMethods(unittest.TestCase):
@@ -267,6 +268,9 @@ class TestSolutionsMethods(unittest.TestCase):
 
     def test_p54Ab(self):
         self.assertEqual(p54A.p54A(["a", ["b", None, None]]), False)
+
+    def test_p55(self):
+        self.assertEqual(len(p55.p55(4)), 8)
 
 
 if __name__ == "__main__":
